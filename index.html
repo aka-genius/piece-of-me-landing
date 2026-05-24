@@ -1,0 +1,524 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="description" content="Pre-save Piece of Me by Aka Genius — new single coming soon. Dance · Afrobeat.">
+  <title>Aka Genius — Piece of Me</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Righteous&family=Poppins:wght@300;400;500;600&display=swap" rel="stylesheet">
+  <style>
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+    :root {
+      --bg:        #1C1917;
+      --bg-card:   #231F1C;
+      --gold:      #A16207;
+      --gold-lt:   #D97706;
+      --gold-glow: #F59E0B;
+      --gold-dim:  #78450A;
+      --text:      #F5F0E8;
+      --text-muted:#A89880;
+      --border:    rgba(161,98,7,0.22);
+    }
+
+    html { scroll-behavior: smooth; }
+
+    body {
+      background: var(--bg);
+      color: var(--text);
+      font-family: 'Poppins', sans-serif;
+      min-height: 100dvh;
+      overflow-x: hidden;
+    }
+
+    /* ── Ambient background ────────────────────────────────────────────── */
+    body::before {
+      content: '';
+      position: fixed;
+      inset: 0;
+      background:
+        radial-gradient(ellipse 70% 50% at 50% 0%,   rgba(161,98,7,0.10) 0%, transparent 65%),
+        radial-gradient(ellipse 40% 30% at 80% 80%,   rgba(161,98,7,0.06) 0%, transparent 60%);
+      pointer-events: none;
+      z-index: 0;
+    }
+
+    /* ── Floating particles ────────────────────────────────────────────── */
+    .particles {
+      position: fixed;
+      inset: 0;
+      pointer-events: none;
+      z-index: 0;
+      overflow: hidden;
+    }
+    .particle {
+      position: absolute;
+      border-radius: 50%;
+      background: var(--gold-glow);
+      opacity: 0;
+      animation: float linear infinite;
+    }
+    @keyframes float {
+      0%   { transform: translateY(100vh) scale(0); opacity: 0; }
+      10%  { opacity: 0.45; }
+      90%  { opacity: 0.18; }
+      100% { transform: translateY(-10vh) scale(1); opacity: 0; }
+    }
+
+    /* ── Page wrapper ──────────────────────────────────────────────────── */
+    .page {
+      position: relative;
+      z-index: 1;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      padding: 0 24px 80px;
+    }
+
+    /* ── Nav / label strip ─────────────────────────────────────────────── */
+    .topbar {
+      width: 100%;
+      max-width: 720px;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      padding: 28px 0 0;
+    }
+    .topbar-label {
+      font-family: 'Righteous', cursive;
+      font-size: 13px;
+      letter-spacing: 0.22em;
+      color: var(--gold);
+      text-transform: uppercase;
+    }
+    .topbar-label span { color: var(--text-muted); font-family: 'Poppins', sans-serif; font-size: 11px; letter-spacing: 0.08em; }
+
+    /* ── Hero section ──────────────────────────────────────────────────── */
+    .hero {
+      width: 100%;
+      max-width: 720px;
+      text-align: center;
+      padding: 64px 0 48px;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      gap: 32px;
+    }
+
+    /* ── Vinyl / art ring ──────────────────────────────────────────────── */
+    .vinyl-wrap {
+      position: relative;
+      width: 220px;
+      height: 220px;
+      flex-shrink: 0;
+    }
+
+    /* outer spinning ring */
+    .vinyl-wrap::before {
+      content: '';
+      position: absolute;
+      inset: -14px;
+      border-radius: 50%;
+      background: conic-gradient(
+        var(--gold-glow) 0deg,
+        var(--gold) 60deg,
+        var(--gold-dim) 120deg,
+        transparent 180deg,
+        var(--gold-dim) 240deg,
+        var(--gold) 300deg,
+        var(--gold-glow) 360deg
+      );
+      animation: spin 6s linear infinite;
+      opacity: 0.85;
+    }
+    /* mask to make it look like a ring */
+    .vinyl-wrap::after {
+      content: '';
+      position: absolute;
+      inset: -2px;
+      border-radius: 50%;
+      background: var(--bg);
+    }
+    @keyframes spin { to { transform: rotate(360deg); } }
+
+    .vinyl-disc {
+      position: relative;
+      z-index: 2;
+      width: 100%;
+      height: 100%;
+      border-radius: 50%;
+      background: radial-gradient(
+        circle at 38% 36%,
+        #2E2925 0%,
+        #1A1614 40%,
+        #110F0E 100%
+      );
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      overflow: hidden;
+      box-shadow:
+        0 0 0 2px rgba(161,98,7,0.35),
+        0 0 40px rgba(161,98,7,0.18),
+        0 20px 60px rgba(0,0,0,0.7);
+    }
+
+    /* grooves */
+    .vinyl-disc::before {
+      content: '';
+      position: absolute;
+      inset: 0;
+      border-radius: 50%;
+      background: repeating-radial-gradient(
+        circle at center,
+        transparent 0px,
+        transparent 6px,
+        rgba(255,255,255,0.025) 7px,
+        transparent 8px
+      );
+    }
+
+    .vinyl-label {
+      position: relative;
+      z-index: 2;
+      width: 74px;
+      height: 74px;
+      border-radius: 50%;
+      background: linear-gradient(135deg, #2C2009 0%, #1C1410 100%);
+      border: 1.5px solid rgba(161,98,7,0.5);
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      gap: 2px;
+    }
+    .vinyl-label-text {
+      font-family: 'Righteous', cursive;
+      font-size: 6px;
+      letter-spacing: 0.08em;
+      color: var(--gold);
+      text-transform: uppercase;
+    }
+    .vinyl-label-dot {
+      width: 6px;
+      height: 6px;
+      border-radius: 50%;
+      background: var(--gold);
+      box-shadow: 0 0 6px var(--gold-glow);
+    }
+
+    /* ── Titles ────────────────────────────────────────────────────────── */
+    .hero-titles { display: flex; flex-direction: column; gap: 8px; }
+
+    .song-title {
+      font-family: 'Righteous', cursive;
+      font-size: clamp(48px, 11vw, 82px);
+      line-height: 1;
+      letter-spacing: 0.03em;
+      background: linear-gradient(135deg, #F5C842 0%, #D97706 40%, #A16207 70%, #F5C842 100%);
+      background-size: 200% auto;
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+      background-clip: text;
+      animation: shimmer 4s linear infinite;
+      text-transform: uppercase;
+    }
+    @keyframes shimmer {
+      to { background-position: 200% center; }
+    }
+
+    .artist-name {
+      font-family: 'Poppins', sans-serif;
+      font-size: clamp(14px, 3.5vw, 20px);
+      font-weight: 500;
+      letter-spacing: 0.28em;
+      color: var(--text-muted);
+      text-transform: uppercase;
+    }
+
+    /* ── Genre tags ────────────────────────────────────────────────────── */
+    .tags {
+      display: flex;
+      gap: 10px;
+      justify-content: center;
+      flex-wrap: wrap;
+    }
+    .tag {
+      font-family: 'Poppins', sans-serif;
+      font-size: 11px;
+      font-weight: 500;
+      letter-spacing: 0.18em;
+      text-transform: uppercase;
+      color: var(--gold-lt);
+      border: 1px solid var(--border);
+      padding: 5px 14px;
+      border-radius: 100px;
+      background: rgba(161,98,7,0.08);
+    }
+
+    /* ── Release info ──────────────────────────────────────────────────── */
+    .release-info {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      gap: 6px;
+    }
+    .release-eyebrow {
+      font-size: 10px;
+      letter-spacing: 0.30em;
+      text-transform: uppercase;
+      color: var(--text-muted);
+    }
+    .release-date {
+      font-family: 'Righteous', cursive;
+      font-size: clamp(22px, 5vw, 32px);
+      letter-spacing: 0.12em;
+      color: var(--text);
+    }
+
+    /* ── Pre-save button ───────────────────────────────────────────────── */
+    .cta-wrap {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      gap: 12px;
+    }
+
+    .btn-presave {
+      position: relative;
+      display: inline-flex;
+      align-items: center;
+      gap: 12px;
+      padding: 18px 48px;
+      border-radius: 4px;
+      font-family: 'Righteous', cursive;
+      font-size: 16px;
+      letter-spacing: 0.18em;
+      text-transform: uppercase;
+      color: #0F0A04;
+      text-decoration: none;
+      background: linear-gradient(135deg, #F5C842 0%, #D97706 50%, #A16207 100%);
+      background-size: 200% auto;
+      box-shadow:
+        0 0 0 1px rgba(245,200,66,0.3),
+        0 4px 24px rgba(161,98,7,0.45),
+        0 2px 8px rgba(0,0,0,0.4);
+      transition: transform 200ms ease, box-shadow 200ms ease, background-position 400ms ease;
+      cursor: pointer;
+      overflow: hidden;
+    }
+    .btn-presave::before {
+      content: '';
+      position: absolute;
+      inset: 0;
+      background: linear-gradient(90deg, transparent 0%, rgba(255,255,255,0.25) 50%, transparent 100%);
+      transform: translateX(-100%);
+      transition: transform 600ms ease;
+    }
+    .btn-presave:hover::before { transform: translateX(100%); }
+    .btn-presave:hover {
+      background-position: right center;
+      transform: translateY(-2px);
+      box-shadow:
+        0 0 0 1px rgba(245,200,66,0.5),
+        0 8px 32px rgba(161,98,7,0.60),
+        0 4px 12px rgba(0,0,0,0.5);
+    }
+    .btn-presave:active { transform: translateY(0); }
+    .btn-presave:focus-visible {
+      outline: 2px solid var(--gold-glow);
+      outline-offset: 4px;
+    }
+
+    /* heart SVG icon */
+    .btn-icon {
+      width: 18px;
+      height: 18px;
+      fill: #0F0A04;
+      flex-shrink: 0;
+    }
+
+    .cta-sub {
+      font-size: 11px;
+      color: var(--text-muted);
+      letter-spacing: 0.08em;
+    }
+
+    /* ── Divider ───────────────────────────────────────────────────────── */
+    .divider {
+      width: 100%;
+      max-width: 360px;
+      height: 1px;
+      background: linear-gradient(90deg, transparent, var(--border), transparent);
+      margin: 16px 0;
+    }
+
+    /* ── Pulse ring (accent animation) ────────────────────────────────── */
+    .pulse-ring {
+      position: absolute;
+      inset: -32px;
+      border-radius: 50%;
+      border: 1px solid rgba(161,98,7,0.30);
+      animation: pulse-out 3s ease-out infinite;
+      pointer-events: none;
+    }
+    .pulse-ring:nth-child(2) { animation-delay: 1s; }
+    .pulse-ring:nth-child(3) { animation-delay: 2s; }
+    @keyframes pulse-out {
+      0%   { transform: scale(0.9); opacity: 0.7; }
+      100% { transform: scale(1.4); opacity: 0; }
+    }
+
+    /* ── Footer ────────────────────────────────────────────────────────── */
+    footer {
+      position: relative;
+      z-index: 1;
+      width: 100%;
+      text-align: center;
+      padding: 32px 24px;
+      border-top: 1px solid var(--border);
+    }
+    .footer-inner {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      gap: 10px;
+    }
+    .footer-label {
+      font-family: 'Righteous', cursive;
+      font-size: 18px;
+      letter-spacing: 0.22em;
+      color: var(--gold);
+      text-transform: uppercase;
+    }
+    .footer-sub {
+      font-size: 11px;
+      color: var(--text-muted);
+      letter-spacing: 0.12em;
+    }
+
+    /* ── Reduced-motion ────────────────────────────────────────────────── */
+    @media (prefers-reduced-motion: reduce) {
+      .vinyl-wrap::before,
+      .song-title,
+      .pulse-ring,
+      .particle { animation: none; }
+      .btn-presave::before { display: none; }
+    }
+
+    /* ── Mobile ────────────────────────────────────────────────────────── */
+    @media (max-width: 480px) {
+      .hero { padding: 48px 0 40px; gap: 28px; }
+      .vinyl-wrap { width: 180px; height: 180px; }
+      .btn-presave { padding: 16px 36px; font-size: 14px; }
+    }
+  </style>
+</head>
+<body>
+
+  <!-- Floating particles -->
+  <div class="particles" aria-hidden="true" id="particles"></div>
+
+  <div class="page">
+
+    <!-- Top bar -->
+    <header class="topbar" role="banner">
+      <span class="topbar-label">Aka Genius</span>
+      <span class="topbar-label"><span>Out Now</span></span>
+    </header>
+
+    <!-- Hero -->
+    <main class="hero" role="main">
+
+      <!-- Vinyl art with animated ring -->
+      <div class="vinyl-wrap" aria-hidden="true">
+        <div class="pulse-ring"></div>
+        <div class="pulse-ring"></div>
+        <div class="pulse-ring"></div>
+        <div class="vinyl-disc">
+          <div class="vinyl-label">
+            <span class="vinyl-label-text">GENIUS</span>
+            <span class="vinyl-label-dot"></span>
+            <span class="vinyl-label-text">2026</span>
+          </div>
+        </div>
+      </div>
+
+      <!-- Titles -->
+      <div class="hero-titles">
+        <h1 class="song-title">Piece of Me</h1>
+        <p class="artist-name">Aka Genius</p>
+      </div>
+
+      <!-- Genre tags -->
+      <div class="tags" role="list" aria-label="Genres">
+        <span class="tag" role="listitem">Dance</span>
+        <span class="tag" role="listitem">Afrobeat</span>
+      </div>
+
+      <!-- Release date -->
+      <div class="release-info">
+        <p class="release-eyebrow">Out Now</p>
+        <p class="release-date">May 22, 2026</p>
+      </div>
+
+      <div class="divider" aria-hidden="true"></div>
+
+      <!-- Pre-save CTA -->
+      <div class="cta-wrap">
+        <a
+          class="btn-presave"
+          href="https://www.shazam.com/track/878379099?referrer=share"
+          target="_blank"
+          rel="noopener noreferrer"
+          aria-label="Listen to Piece of Me by Aka Genius on Shazam"
+        >
+          <svg class="btn-icon" viewBox="0 0 24 24" aria-hidden="true">
+            <path d="M8 5v14l11-7z"/>
+          </svg>
+          Play Now
+        </a>
+        <p class="cta-sub">Stream on any platform · Out now</p>
+      </div>
+
+    </main>
+  </div>
+
+  <!-- Footer -->
+  <footer>
+    <div class="footer-inner">
+      <p class="footer-label">Awa Sounds</p>
+      <p class="footer-sub">&copy; 2026 Awa Sounds · All rights reserved</p>
+    </div>
+  </footer>
+
+  <script>
+    // ── Spawn particles ───────────────────────────────────────────────────
+    (function() {
+      var container = document.getElementById('particles');
+      if (!container) return;
+      // Respect reduced-motion
+      var mq = window.matchMedia('(prefers-reduced-motion: reduce)');
+      if (mq.matches) return;
+
+      var count = 18;
+      for (var i = 0; i < count; i++) {
+        var p = document.createElement('div');
+        p.className = 'particle';
+        var size = Math.random() * 3 + 1.5;
+        p.style.cssText = [
+          'width:' + size + 'px',
+          'height:' + size + 'px',
+          'left:' + (Math.random() * 100) + '%',
+          'animation-duration:' + (Math.random() * 14 + 10) + 's',
+          'animation-delay:' + (Math.random() * -20) + 's',
+        ].join(';');
+        container.appendChild(p);
+      }
+    })();
+  </script>
+
+</body>
+</html>
